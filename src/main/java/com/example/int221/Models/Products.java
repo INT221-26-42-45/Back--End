@@ -1,4 +1,4 @@
-package Models;
+package com.example.int221.Models;
 
 
 
@@ -7,10 +7,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+
+import javax.persistence.*;
+import java.sql.Date;
 
 @Entity
 @Getter
@@ -21,15 +20,31 @@ import javax.persistence.Id;
 public class Products {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long productId;
+    private String productId;
+
     private String productName;
+
     private String productCode;
+
     private String productDescription;
+
     private String productType;
+
     private String productSize;
+
     private Double productPrice;
-    private String productDate;
+
+    private Date productDate;
+
     private String productImg;
+
+    @ManyToOne
+    @JoinColumn(name = "brandId")
+    private Brands brandId;
+
+
+
+
 
 
 
