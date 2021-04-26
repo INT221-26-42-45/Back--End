@@ -12,17 +12,19 @@ import javax.persistence.*;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Table(name = "colorofproduct")
 public class ColorOfProduct {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private String colorOfproduct;
+    @Column(name = "colorofproductid")
+    private String colorOfproductId;
 
     @ManyToOne
-    @JoinColumn(name = "productId")
-    private Products productId;
+    @JoinColumn(name = "productid")
+    private Products products;
 
     @ManyToOne
-    @JoinColumn(name = "colorId")
-    private Colors colorId;
+    @JoinColumn(name = "colorid")
+    private Colors colors;
 
 }
