@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.SQLInsert;
 
 
 import javax.persistence.*;
@@ -18,12 +19,13 @@ import java.util.Set;
 @NoArgsConstructor
 @Table(name = "colors")
 @JsonIgnoreProperties(value = "products")
+@SQLInsert(sql = "INSERT IGNORE INTO colors(ColorId, ColorName) VALUES(?,?)")
 public class Colors {
     @Id
     @Column(name = "ColorId")
     private int colorId;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "colors")
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE}, mappedBy = "colors")
     Set<Products> products;
 
     @Column(name = "ColorName")

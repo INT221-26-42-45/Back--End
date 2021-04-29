@@ -1,5 +1,6 @@
 package INT221.Project.Services;
 
+import INT221.Project.Models.Colors;
 import INT221.Project.Models.Products;
 import INT221.Project.Repositories.ProductJpaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,9 +16,6 @@ public class ProductService {
 
     @Autowired
     ProductJpaRepository productJpaRepository;
-
-    @Autowired
-    ColorService colorService;
 
     //GetMapping
     public List<Products> allProducts(){
@@ -49,5 +47,13 @@ public class ProductService {
             product.setColors(newProduct.getColors());
             return productJpaRepository.save(newProduct);
         });
+    }
+
+    //PostMapping
+    public Products addProduct(@RequestBody Products newProducts){
+        for(Colors c : newProducts.getColors()){
+            newProducts.getColors().add(c);
+        }
+        return productJpaRepository.save(newProducts);
     }
 }

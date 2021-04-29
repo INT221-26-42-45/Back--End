@@ -1,10 +1,8 @@
 package INT221.Project.Controllers;
 
 import INT221.Project.Models.Products;
-import INT221.Project.Services.ColorService;
 import INT221.Project.Services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -18,9 +16,6 @@ public class ProductRestController {
 
     @Autowired
     ProductService productService;
-
-    @Autowired
-    ColorService colorService;
 
     @GetMapping("/product")
     public List<Products> showAllProducts(){
@@ -38,16 +33,17 @@ public class ProductRestController {
         productService.deleteProduct(productId);
     }
 
-
-//    @PostMapping("/product")
-//    public Products newProduct(@RequestBody Products newProduct){
-//        return productJpaRepository.save(newProduct);
-//    }
-
     @PutMapping("/product/edit/{productId}")
     public Optional<Products> updateProduct(@PathVariable Integer productId, @RequestBody Products newProduct) {
         return productService.updateProduct(productId, newProduct);
     }
+
+    @PostMapping("/add")
+    public Products newProduct(@RequestBody Products newProduct){
+        return productService.addProduct(newProduct);
+    }
+
+
 
 
 

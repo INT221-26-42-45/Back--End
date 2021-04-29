@@ -11,6 +11,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -21,10 +22,11 @@ import java.util.Set;
 @Table(name = "products")
 public class Products implements Serializable {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "ProductId")
     private int productId;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(
       name = "skorproduct",
       joinColumns = @JoinColumn(name = "ProductId"),
