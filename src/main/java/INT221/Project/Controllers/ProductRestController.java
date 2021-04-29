@@ -33,7 +33,7 @@ public class ProductRestController {
     }
 
     @Transactional
-    @DeleteMapping("/product/{productId}")
+    @DeleteMapping("/product/delete/{productId}")
     public void deleteProduct(@PathVariable Integer productId) {
         productService.deleteProduct(productId);
     }
@@ -44,22 +44,10 @@ public class ProductRestController {
 //        return productJpaRepository.save(newProduct);
 //    }
 
-//    @PutMapping("/product/{productId}")
-//    public Products updateProduct(@PathVariable Integer productId, @RequestBody Products newProduct) throws ResourceNotFoundException {
-//        return productJpaRepository.findById(productId).map(product -> {
-//            product.setProductName(newProduct.getProductName());
-//            product.setProductDescription(newProduct.getProductDescription());
-//            product.setProductType(newProduct.getProductType());
-//            product.setProductSize(newProduct.getProductSize());
-//            product.setProductPrice(newProduct.getProductPrice());
-//            product.setProductDate(newProduct.getProductDate());
-//            product.setProductImg(newProduct.getProductImg());
-//            product.setBrands(newProduct.getBrands());
-//            product.setColors(newProduct.getColors());
-//            return productJpaRepository.save(product);
-//        }).orElseThrow(() -> new ResourceNotFoundException("Product not found for this id: " + productId));
-//    }
-
+    @PutMapping("/product/edit/{productId}")
+    public Optional<Products> updateProduct(@PathVariable Integer productId, @RequestBody Products newProduct) {
+        return productService.updateProduct(productId, newProduct);
+    }
 
 
 
