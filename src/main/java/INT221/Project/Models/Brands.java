@@ -1,4 +1,4 @@
-package com.example.int221.Models;
+package INT221.Project.Models;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -15,11 +15,10 @@ import javax.persistence.*;
 @Table(name = "brands")
 public class Brands {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "brandid")
-    private String brandId;
+    @Column(name = "BrandId")
+    private int brandId;
 
-    @Column(name = "brandname")
+    @Column(name = "BrandName")
     private String brandName;
 
 }

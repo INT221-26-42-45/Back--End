@@ -1,9 +1,7 @@
-package com.example.int221;
+package INT221.Project;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-
-import java.time.LocalDateTime;
 
 @SpringBootApplication
 public class Int221Application {
