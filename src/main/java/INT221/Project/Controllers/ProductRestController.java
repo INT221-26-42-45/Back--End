@@ -1,5 +1,7 @@
 package INT221.Project.Controllers;
 
+import INT221.Project.Exceptions.ResourceAlreadyExists;
+import INT221.Project.Exceptions.ResourceNotFoundException;
 import INT221.Project.Models.Products;
 import INT221.Project.Services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +25,10 @@ public class ProductRestController {
     }
 
     @GetMapping("/product/{productId}")
-    public Optional<Products> showProduct(@PathVariable Integer productId){
+    public Products showProduct(@PathVariable Integer productId){
+        if(productService.showProduct(productId) == null ) {
+            throw new ResourceNotFoundException("ProductId:"+productId+" is not found.");
+        }
         return productService.showProduct(productId);
     }
 
@@ -40,6 +45,9 @@ public class ProductRestController {
 
     @PostMapping("/add")
     public Products newProduct(@RequestBody Products newProduct){
+        if(newProduct != null) {
+            throw new ResourceAlreadyExists("ProductId:"+newProduct.getProductId()+" is already exist.");
+        }
         return productService.addProduct(newProduct);
     }
 

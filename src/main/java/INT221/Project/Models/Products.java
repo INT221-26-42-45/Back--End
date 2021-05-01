@@ -26,7 +26,7 @@ public class Products implements Serializable {
     @Column(name = "ProductId")
     private int productId;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(
       name = "skorproduct",
       joinColumns = @JoinColumn(name = "ProductId"),

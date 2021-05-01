@@ -23,8 +23,8 @@ public class ProductService {
     }
 
     //GetMapping
-    public Optional<Products> showProduct(@PathVariable Integer productId){
-        return productJpaRepository.findById(productId);
+    public Products showProduct(@PathVariable Integer productId){
+        return productJpaRepository.findById(productId).orElse(null);
     }
 
     //DeleteMapping
