@@ -2,6 +2,7 @@ package INT221.Project.Models;
 
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,7 +12,6 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Date;
-import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -19,7 +19,7 @@ import java.util.Set;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "products")
+@Table(name = "Products")
 public class Products implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -28,7 +28,7 @@ public class Products implements Serializable {
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(
-      name = "skorproduct",
+      name = "SkorProduct",
       joinColumns = @JoinColumn(name = "ProductId"),
       inverseJoinColumns = @JoinColumn(name = "ColorId"))
     Set<Colors> colors;
@@ -49,6 +49,7 @@ public class Products implements Serializable {
     private Double productPrice;
 
     @Column(name = "ProductDate")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date productDate;
 
     @Column(name = "ProductImg")

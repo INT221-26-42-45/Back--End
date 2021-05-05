@@ -12,7 +12,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Getter
 @Setter
-@Table(name = "brands")
+@Table(name = "Brands")
 public class Brands {
     @Id
     @Column(name = "BrandId")

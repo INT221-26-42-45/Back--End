@@ -27,4 +27,6 @@ public class GlobalExceptionHandler {
         response.setTimestamp(LocalDateTime.now());
         return new ResponseEntity<ExceptionResponse>(response, HttpStatus.CONFLICT);
     }
+
+
 }

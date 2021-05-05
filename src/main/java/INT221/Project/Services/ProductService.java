@@ -2,11 +2,12 @@ package INT221.Project.Services;
 
 import INT221.Project.Models.Colors;
 import INT221.Project.Models.Products;
-import INT221.Project.Repositories.ProductJpaRepository;
+import INT221.Project.Repositories.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
+
 
 import java.util.List;
 import java.util.Optional;
@@ -15,27 +16,28 @@ import java.util.Optional;
 public class ProductService {
 
     @Autowired
-    ProductJpaRepository productJpaRepository;
+    ProductRepository productRepository;
+
 
     //GetMapping
     public List<Products> allProducts(){
-        return productJpaRepository.findAll();
+        return productRepository.findAll();
     }
 
     //GetMapping
     public Products showProduct(@PathVariable Integer productId){
-        return productJpaRepository.findById(productId).orElse(null);
+        return productRepository.findById(productId).orElse(null);
     }
 
     //DeleteMapping
     public void deleteProduct(@PathVariable Integer productId) {
-        productJpaRepository.deleteProduct(productId);
-        productJpaRepository.deleteById(productId);
+        productRepository.deleteProduct(productId);
+        productRepository.deleteById(productId);
     }
 
     //PutMapping
     public Optional<Products> updateProduct(@PathVariable Integer productId, @RequestBody Products newProduct) {
-        return productJpaRepository.findById(productId).map(product -> {
+        return productRepository.findById(productId).map(product -> {
             product.setProductName(newProduct.getProductName());
             product.setProductDescription(newProduct.getProductDescription());
             product.setProductType(newProduct.getProductType());
@@ -45,7 +47,7 @@ public class ProductService {
             product.setProductImg(newProduct.getProductImg());
             product.setBrands(newProduct.getBrands());
             product.setColors(newProduct.getColors());
-            return productJpaRepository.save(newProduct);
+            return productRepository.save(newProduct);
         });
     }
 
@@ -54,6 +56,12 @@ public class ProductService {
         for(Colors c : newProducts.getColors()){
             newProducts.getColors().add(c);
         }
-        return productJpaRepository.save(newProducts);
+        return productRepository.save(newProducts);
     }
+
+    public List<Products> findProduct(String productName){
+        return productRepository.selectProduct(productName);
+    }
+
+
 }
