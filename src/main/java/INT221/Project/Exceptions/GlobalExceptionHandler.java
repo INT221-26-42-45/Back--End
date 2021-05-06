@@ -4,6 +4,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.multipart.MaxUploadSizeExceededException;
+
 
 import java.time.LocalDateTime;
 
@@ -26,6 +28,15 @@ public class GlobalExceptionHandler {
         response.setErrorMessage(r.getMessage());
         response.setTimestamp(LocalDateTime.now());
         return new ResponseEntity<ExceptionResponse>(response, HttpStatus.CONFLICT);
+    }
+
+    @ExceptionHandler(MaxUploadSizeExceededException .class)
+    public ResponseEntity<ExceptionResponse> handleMaxSizeException(MaxUploadSizeExceededException exc) {
+        ExceptionResponse response = new ExceptionResponse();
+        response.setErrorCode("EXCEPTATION_FAILED");
+        response.setErrorMessage("File upload too large.");
+        response.setTimestamp(LocalDateTime.now());
+        return new ResponseEntity<ExceptionResponse>(response, HttpStatus.EXPECTATION_FAILED);
     }
 
 

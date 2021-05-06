@@ -8,10 +8,10 @@ import INT221.Project.Services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MaxUploadSizeExceededException;
 import org.springframework.web.multipart.MultipartFile;
 
 
@@ -50,6 +50,9 @@ public class ProductController {
 
     @PutMapping("/product/edit/{productId}")
     public Optional<Products> updateProduct(@RequestParam("file") MultipartFile file, @PathVariable Integer productId, @RequestPart Products newProduct) {
+        if(file.getOriginalFilename().length() > file.getSize()){
+            throw new MaxUploadSizeExceededException(file.getSize());
+        }
         fileStorageService.delete(productService.showProduct(productId).getProductImg());
         fileStorageService.save(file);
         return productService.updateProduct(productId, newProduct);
@@ -60,6 +63,9 @@ public class ProductController {
     public Products newProduct(@RequestParam("file")MultipartFile file,@RequestPart Products newProduct){
         if(!productService.findProduct(newProduct.getProductName()).isEmpty()) {
             throw new ResourceAlreadyExists("ProductName:"+newProduct.getProductName()+" is already exist.");
+        }
+        if(file.getOriginalFilename().length() > file.getSize()){
+            throw new MaxUploadSizeExceededException(file.getSize());
         }
         fileStorageService.save(file);
         return productService.addProduct(newProduct);
