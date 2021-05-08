@@ -19,7 +19,7 @@ import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
-@CrossOrigin(origins = {"http://localhost:8081"})
+@CrossOrigin(origins = {"http://localhost:8080"})
 @RestController
 public class ProductController {
 
@@ -43,12 +43,12 @@ public class ProductController {
     }
 
     @Transactional
-    @DeleteMapping("/product/delete/{productId}")
+    @DeleteMapping("/delete/{productId}")
     public void deleteProduct(@PathVariable Integer productId) {
         productService.deleteProduct(productId);
     }
 
-    @PutMapping("/product/edit/{productId}")
+    @PutMapping("/edit/{productId}")
     public Optional<Products> updateProduct(@RequestParam("file") MultipartFile file, @PathVariable Integer productId, @RequestPart Products newProduct) {
         if(file.getOriginalFilename().length() > file.getSize()){
             throw new MaxUploadSizeExceededException(file.getSize());
@@ -77,6 +77,7 @@ public class ProductController {
         return ResponseEntity.ok().contentType(MediaType.IMAGE_PNG).header(HttpHeaders.CONTENT_DISPOSITION,
                 "attachment; fliename=\"" + file.getFilename()+"\"").body(file);
     }
+
 
 
 
