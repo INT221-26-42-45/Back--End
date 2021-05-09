@@ -44,7 +44,8 @@ public class ProductController {
 
     @Transactional
     @DeleteMapping("/delete/{productId}")
-    public void deleteProduct(@PathVariable Integer productId) {
+    public void deleteProduct(@PathVariable Integer productId ) {
+        fileStorageService.delete(productService.showProduct(productId).getProductImg());
         productService.deleteProduct(productId);
     }
 
