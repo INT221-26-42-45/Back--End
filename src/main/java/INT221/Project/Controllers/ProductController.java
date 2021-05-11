@@ -19,7 +19,7 @@ import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
-@CrossOrigin(origins = {"http://localhost:8080"})
+@CrossOrigin
 @RestController
 public class ProductController {
 

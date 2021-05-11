@@ -22,15 +22,15 @@ import java.util.Set;
 @Table(name = "Products")
 public class Products implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ProductId")
     private int productId;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToMany
     @JoinTable(
       name = "SkorProduct",
-      joinColumns = @JoinColumn(name = "ProductId"),
-      inverseJoinColumns = @JoinColumn(name = "ColorId"))
+      joinColumns = @JoinColumn(name = "ProductId", insertable = false),
+      inverseJoinColumns = @JoinColumn(name = "ColorId", insertable = false))
     Set<Colors> colors;
 
     @Column(name = "ProductName")
